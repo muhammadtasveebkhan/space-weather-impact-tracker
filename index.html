@@ -5,7 +5,7 @@
   <title>Space Weather Impact Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    body {  
       font-family: Arial, sans-serif;
       background: #0b0c10;
       color: #c5c6c7;
@@ -25,13 +25,6 @@
     }
     .card h2 {
       color: #45a29e;
-    }
-    pre {
-      text-align: left;
-      background: #0b0c10;
-      padding: 10px;
-      border-radius: 8px;
-      overflow-x: auto;
     }
     footer {
       margin-top: 30px;
@@ -70,9 +63,9 @@
         
         let latest = data[data.length - 1];
         document.getElementById("solarData").innerHTML = `
-          <strong>Date:</strong> ${latest.time_tag}<br>
-          <strong>Sunspot Number:</strong> ${latest.ssn}<br>
-          <strong>Solar Flux:</strong> ${latest.solar_flux}
+          <strong>Date:</strong> ${latest.time_tag || 'N/A'}<br>
+          <strong>Sunspot Number:</strong> ${latest.ssn || 'N/A'}<br>
+          <strong>Solar Flux:</strong> ${latest.solar_flux || 'N/A'}
         `;
       } catch (error) {
         document.getElementById("solarData").innerHTML = "Error loading data ❌";
