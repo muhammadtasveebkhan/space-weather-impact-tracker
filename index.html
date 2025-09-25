@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Space Weather Impact Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0c10;
+      color: #c5c6c7;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #66fcf1;
+    }
+    .card {
+      background: #1f2833;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+    .card h2 {
+      color: #45a29e;
+    }
+    pre {
+      text-align: left;
+      background: #0b0c10;
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌍 Space Weather Impact Tracker</h1>
+  <p>Powered by NASA / NOAA Open Data</p>
+
+  <div class="card">
+    <h2>Latest Solar Activity</h2>
+    <p id="solarData">Loading...</p>
+  </div>
+
+  <div class="card">
+    <h2>Why It Matters?</h2>
+    <p>
+      Solar activity can affect satellites, GPS navigation, and even cause beautiful auroras near the poles.
+      By tracking this data, scientists and engineers can protect spacecraft and prepare for impacts.
+    </p>
+  </div>
+
+  <footer>
+    Made for NASA Space Apps Challenge 2025 ✨
+  </footer>
+
+  <script>
+    async function getSolarData() {
+      try {
+        // NOAA SWPC API (real-time solar data)
+        let response = await fetch("https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json");
+        let data = await response.json();
+        
+        let latest = data[data.length - 1];
+        document.getElementById("solarData").innerHTML = `
+          <strong>Date:</strong> ${latest.time_tag}<br>
+          <strong>Sunspot Number:</strong> ${latest.ssn}<br>
+          <strong>Solar Flux:</strong> ${latest.solar_flux}
+        `;
+      } catch (error) {
+        document.getElementById("solarData").innerHTML = "Error loading data ❌";
+      }
+    }
+
+    getSolarData();
+  </script>
+</body>
+</html>
